@@ -25,7 +25,7 @@ class FilmItem extends React.Component {
       </View>
     )
   }
-}
+}//poster_path
 
 const styles = StyleSheet.create({
     main_container: {
