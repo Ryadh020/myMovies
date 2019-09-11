@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-native'
+import { StyleSheet, View, TextInput, Button, FlatList, Text, ActivityIndicator } from 'react-native'
 import FilmItem from './filmItems';
 import {getMoviesData} from '../API/movieDB';
 
@@ -11,14 +11,16 @@ class Search extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {films:[]}
-    this.searchText = "";
+    this.state = {films:[],
+                  isLoading : false}
+    this.searchText = ""
   }
     // serch for data when cliking the search button
   _searchForMoviesData() {
     if(this.searchText.length >0) {
+      this.setState({isLoading : true})
       getMoviesData(this.searchText).then((data) => {
-          this.setState({films:data.results})
+          this.setState({films:data.results, isLoading : false})
           console.log(data);
       })
     }
@@ -29,8 +31,18 @@ class Search extends React.Component {
     this.searchText= text
   }
 
+  _displayLoading() {
+    if(this.state.isLoading) {
+        return (
+          <View style={styles.loading_container}>
+            <ActivityIndicator size='large' />
+          </View>
+      )
+    }
 
-  render() {
+  }
+
+  render() {    
     return (
       <View style={styles.main_container}>
         <TextInput onSubmitEditing={()=> this._searchForMoviesData()} onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='tap a film name'/>
@@ -40,6 +52,7 @@ class Search extends React.Component {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({item}) => <FilmItem film={item}/>}
         />
+        {this._displayLoading()}
       </View>
     )
   }
@@ -57,6 +70,15 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
     borderWidth: 1,
     paddingLeft: 5
+  },
+  loading_container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 100,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 
