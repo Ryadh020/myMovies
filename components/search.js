@@ -38,8 +38,7 @@ class Search extends React.Component {
     this.totalPages = 0
     this.setState({
       films: []
-    })
-    this._searchForMoviesData()
+    }, this._searchForMoviesData())
   }
   
     // watching text input changes:
