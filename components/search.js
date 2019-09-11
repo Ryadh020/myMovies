@@ -31,6 +31,17 @@ class Search extends React.Component {
     }
     
   }
+
+    // load movies
+  _loadMovies() {
+    this.page = 0
+    this.totalPages = 0
+    this.setState({
+      films: []
+    })
+    this._searchForMoviesData()
+  }
+  
     // watching text input changes:
   _changeSearchText(text) {
     this.searchText= text
@@ -50,8 +61,8 @@ class Search extends React.Component {
   render() {    
     return (
       <View style={styles.main_container}>
-        <TextInput onSubmitEditing={()=> this._searchForMoviesData()} onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='tap a film name'/>
-        <Button title='Rechercher' onPress={() => this._searchForMoviesData()}/>
+        <TextInput onSubmitEditing={()=> this._loadMovies()} onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='tap a film name'/>
+        <Button title='Rechercher' onPress={() => this._loadMovies()}/>
         <FlatList
             data={this.state.films}
             keyExtractor={(item) => item.id.toString()}
