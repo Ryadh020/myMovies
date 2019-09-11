@@ -14,14 +14,19 @@ class Search extends React.Component {
     this.state = {films:[],
                   isLoading : false}
     this.searchText = ""
+    this.page = 0
+    this.totalPages = 0
   }
     // serch for data when cliking the search button
   _searchForMoviesData() {
     if(this.searchText.length >0) {
       this.setState({isLoading : true})
-      getMoviesData(this.searchText).then((data) => {
-          this.setState({films:data.results, isLoading : false})
-          console.log(data);
+      getMoviesData(this.searchText, this.page+1).then((data) => {
+         this.page = data.page
+         this.totalPages = data.total_pages
+         this.setState({
+            films: [ ...this.state.films, ...data.results ],
+            isLoading : false})
       })
     }
     
@@ -50,6 +55,13 @@ class Search extends React.Component {
         <FlatList
             data={this.state.films}
             keyExtractor={(item) => item.id.toString()}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => {
+                // checking for if there still availible pages to load:
+              if (this.page < this.totalPages) { 
+                this._searchForMoviesData()
+              }
+            }}
             renderItem={({item}) => <FilmItem film={item}/>}
         />
         {this._displayLoading()}
@@ -78,7 +90,7 @@ const styles = StyleSheet.create({
     top: 100,
     bottom: 0,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 })
 
