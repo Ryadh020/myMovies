@@ -15,7 +15,7 @@ class Search extends React.Component {
     this.searchText = "";
   }
 
-  searchForMoviesData() {
+  _searchForMoviesData() {
     if(this.searchText.length >0) {
       getMoviesData(this.searchText).then((data) => {
           this.setState({films:data.results})
@@ -25,7 +25,7 @@ class Search extends React.Component {
     
   }
 
-  changeSearchText(text) {
+  _changeSearchText(text) {
     this.searchText= text
   }
 
@@ -33,8 +33,8 @@ class Search extends React.Component {
   render() {
     return (
       <View style={styles.main_container}>
-        <TextInput onChangeText={(text)=> { this.changeSearchText(text)}} style={styles.textinput} placeholder='tap a film name'/>
-        <Button title='Rechercher' onPress={() => this.searchForMoviesData()}/>
+        <TextInput onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='tap a film name'/>
+        <Button title='Rechercher' onPress={() => this._searchForMoviesData()}/>
         <FlatList
             data={this.state.films}
             keyExtractor={(item) => item.id.toString()}
