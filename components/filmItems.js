@@ -4,6 +4,7 @@ import {getPoster} from '../API/movieDB'
 
 class FilmItem extends React.Component {
   render() {
+        // the movie all data :
       const film = this.props.film;   
     return (
         <View style={styles.main_container}>
@@ -26,7 +27,7 @@ class FilmItem extends React.Component {
       </View>
     )
   }
-}//poster_path
+}
 
 const styles = StyleSheet.create({
     main_container: {

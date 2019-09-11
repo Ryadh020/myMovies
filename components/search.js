@@ -14,7 +14,7 @@ class Search extends React.Component {
     this.state = {films:[]}
     this.searchText = "";
   }
-
+    // serch for data when cliking the search button
   _searchForMoviesData() {
     if(this.searchText.length >0) {
       getMoviesData(this.searchText).then((data) => {
@@ -24,7 +24,7 @@ class Search extends React.Component {
     }
     
   }
-
+    // watching text input changes:
   _changeSearchText(text) {
     this.searchText= text
   }
@@ -33,7 +33,7 @@ class Search extends React.Component {
   render() {
     return (
       <View style={styles.main_container}>
-        <TextInput onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='tap a film name'/>
+        <TextInput onSubmitEditing={()=> this._searchForMoviesData()} onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='tap a film name'/>
         <Button title='Rechercher' onPress={() => this._searchForMoviesData()}/>
         <FlatList
             data={this.state.films}
