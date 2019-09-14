@@ -4,9 +4,6 @@ import FilmItem from './filmItems';
 import {getMoviesData} from '../API/movieDB';
 
 
-
-
-
 class Search extends React.Component {
 
   constructor(props) {
@@ -57,6 +54,11 @@ class Search extends React.Component {
 
   }
 
+  _displayDetailForFilm = (idFilm) => {
+    console.log("Display film with id " + idFilm)
+    this.props.navigation.navigate("filmdetail",{filmId : idFilm})
+  }
+
   render() {    
     return (
       <View style={styles.main_container}>
@@ -72,7 +74,7 @@ class Search extends React.Component {
                 this._searchForMoviesData()
               }
             }}
-            renderItem={({item}) => <FilmItem film={item}/>}
+            renderItem={({item}) => <FilmItem displayDetailForFilm={this._displayDetailForFilm} film={item}/>}
         />
         {this._displayLoading()}
       </View>
@@ -83,7 +85,7 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1,
-    marginTop: 20
+    //marginTop: 20
   },
   textinput: {
     marginLeft: 5,
