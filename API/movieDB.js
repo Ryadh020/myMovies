@@ -10,6 +10,13 @@ export function getMoviesData(searchText, page)  {
         .catch((error)=> console.log(error))
 }
 
+export function getMoviesDetails(id) {
+    const url = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=' + key + '&language=fr';
+    return fetch(url)
+        .then((Response)=> Response.json())
+        .catch((error)=> console.log(error))
+}
+
 export const getPoster = (name)=> {
     return 'https://image.tmdb.org/t/p/w300' + name;
 }
