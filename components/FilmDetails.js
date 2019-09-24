@@ -111,4 +111,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FilmDetail
+
+const mapStateToProps = (state) => {
+  return {
+    favoritesFilm: state.favoritesFilm
+  }
+}
+
+export default connect(mapStateToProps)(FilmDetail)
