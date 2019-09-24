@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image } from 'react-native'
+import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity } from 'react-native'
 import {getMoviesDetails, getPoster} from '../API/movieDB';
-
+import { connect } from 'react-redux'
 
 class FilmDetail extends React.Component {
 
@@ -34,6 +34,25 @@ class FilmDetail extends React.Component {
   
   }
 
+  _toggleFavorite() {
+    const action = { type: "TOGGLE_FAVORITE", value: this.state.film }
+    this.props.dispatch(action)
+}
+
+  _displayFavoriteImage() {
+    var sourceImage = require('../Images/ic_favorite_border.png')
+    if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
+     // Film dans nos favoris
+     sourceImage = require('../Images/ic_favorite.png')
+    }
+    return (
+     <Image
+       style={styles.favorite_image}
+       source={sourceImage}
+     />
+   )
+  }
+
   _displayFilm() {
     if (this.state.film != undefined) {
       return (
@@ -43,6 +62,11 @@ class FilmDetail extends React.Component {
           source={{uri: getPoster(this.state.film.backdrop_path)}}
           />
           <Text style={styles.title_text}>{this.state.film.title}</Text>
+          <TouchableOpacity
+            style={styles.favorite_container}
+            onPress={() => this._toggleFavorite()}>
+            {this._displayFavoriteImage()}
+          </TouchableOpacity>
           <Text style={styles.description_text}>Overview : {this.state.film.overview}</Text>
           <Text style={styles.default_text}>Released in : {this.state.film.release_date}</Text>
           <Text style={styles.default_text}>rate : {this.state.film.vote_average}</Text>
@@ -108,7 +132,14 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     marginTop: 5,
-  }
+  },
+  favorite_container: {
+    alignItems: 'center', // Alignement des components enfants sur l'axe secondaire, X ici
+},
+favorite_image: {
+  width: 40,
+  height: 40
+}
 })
 
 

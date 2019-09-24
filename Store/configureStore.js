@@ -1,4 +1,4 @@
 import { createStore } from 'redux';
-import toggleFavorite from './Reducers/favoriteReducer'
+import toggleFavorite from './reducers/favoritereducer'
 
 export default createStore(toggleFavorite)
