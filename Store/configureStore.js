@@ -1,4 +1,10 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import toggleFavorite from './reducers/favoritereducer'
+import manageHistoricFilms from './reducers/historicReducer'
 
-export default createStore(toggleFavorite)
+const reducers = combineReducers({
+    toggleFavorite,
+    manageHistoricFilms
+})
+
+export default createStore(reducers)

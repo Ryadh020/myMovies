@@ -55,9 +55,15 @@ class Search extends React.Component {
 
   }
 
-  _displayDetailForFilm = (idFilm) => {
-    console.log("Display film with id " + idFilm)
+  _displayDetailForFilm = (idFilm, idTitle) => {
+      // change to the view details:
     this.props.navigation.navigate("filmdetail",{filmId : idFilm})
+
+      // Add it to the historic as viewed:
+    console.log("clicked");
+      
+    let action = { type: 'TOGGLE_FILMDETAIL', value: { id: 1, title: 'Star Wars' } }
+    this.props.dispatch(action) 
   }
 
   render() {    
