@@ -1,3 +1,5 @@
+import React from 'react'
+import { Image, StyleSheet } from 'react-native'
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
@@ -23,13 +25,49 @@ const SearchStackNavigator = createStackNavigator({
     }
 })
 
-const BottomNavigationBar = createBottomTabNavigator({
+const BottomNavigationTab = createBottomTabNavigator({
     search : {
-        screen : SearchStackNavigator
+        screen : SearchStackNavigator,
+        navigationOptions : {
+            tabBarIcon : () => {
+                return (
+                    <Image
+                        source={require("../Images/ic_search.png")}
+                        style={styles.icon}
+                    />
+                )
+            }
+        }
     },
     favorites : {
-        screen : Favorites
+        screen : Favorites,
+        navigationOptions : {
+            tabBarIcon : () => {
+                return (
+                    <Image
+                        source={require('../Images/ic_favorite.png')}
+                        style={styles.icon}
+                    />
+                )
+            }
+        } 
+    }
+},
+{
+    tabBarOptions : {
+        showLabel : false,
+        showIcon : true,
+        activeBackgroundColor : 'rgb(180,180,180)',
+        inactiveBackgroundColor : 'white'
+    }
+}
+)
+
+const styles = StyleSheet.create({
+    icon : {
+        width : 30,
+        height : 30
     }
 })
 
-export default createAppContainer(BottomNavigationBar);
+export default createAppContainer(BottomNavigationTab);
