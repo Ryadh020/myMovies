@@ -82,10 +82,12 @@ class Search extends React.Component {
                 this._searchForMoviesData()
               }
             }}
-            renderItem={({item}) => <FilmItem 
-              isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
-              displayDetailForFilm={this._displayDetailForFilm} 
-              film={item}/>}
+            renderItem={({item}) => (
+               <FilmItem 
+                  isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
+                  displayDetailForFilm={this._displayDetailForFilm} 
+                  film={item}/>
+            )}
         />
         {this._displayLoading()}
       </View>

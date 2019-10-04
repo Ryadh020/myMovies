@@ -1,10 +1,11 @@
 import React from 'react'
 import {Text, StyleSheet} from 'react-native'
+import FavoritFilmsList from './FavoritFilmsList'
 
 class Favorites extends React.Component {
     render() {
         return (
-            <Text style={styles.header} >Favorite</Text>
+            <FavoritFilmsList/>
         )
     }
 }
