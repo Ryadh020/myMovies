@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   favorite_container: {
-    alignItems: 'center', // Alignement des components enfants sur l'axe secondaire, X ici
+    alignItems: 'center',
 },
 favorite_image: {
   width: 40,
@@ -145,7 +145,7 @@ favorite_image: {
 
 const mapStateToProps = (state) => {
   return {
-    favoritesFilm: state.favoritesFilm
+    favoritesFilm: state.toggleFavorite.favoritesFilm,
   }
 }
 

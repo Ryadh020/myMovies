@@ -25,6 +25,23 @@ const SearchStackNavigator = createStackNavigator({
     }
 })
 
+const SecondSearchStackNavigator = createStackNavigator({
+    // the list of views to display:
+search: {
+    screen : Favorites,
+    navigationOptions: {
+        title: 'Favorites'
+    }
+},
+filmdetail: {
+    screen : FilmDetail,
+    navigationOptions: {
+        title: 'Details'
+    }
+
+}
+})
+
 const BottomNavigationTab = createBottomTabNavigator({
     search : {
         screen : SearchStackNavigator,
@@ -40,7 +57,7 @@ const BottomNavigationTab = createBottomTabNavigator({
         }
     },
     favorites : {
-        screen : Favorites,
+        screen : SecondSearchStackNavigator,
         navigationOptions : {
             tabBarIcon : () => {
                 return (

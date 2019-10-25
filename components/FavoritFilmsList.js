@@ -12,7 +12,7 @@ constructor(props) {
     }
 }
 
-_displayDetailForFilm = (idFilm, idTitle) => {
+_displayDetailForFilm = (idFilm) => {
     // change to the view details:
   this.props.navigation.navigate("filmdetail",{filmId : idFilm})
 }
@@ -20,14 +20,16 @@ _displayDetailForFilm = (idFilm, idTitle) => {
 render() {
     return(
         <FlatList
-        data={this.state.films}
+        style={styles.list}
+        data={this.props.films}
         keyExtractor={(item) => item.id.toString()}
         onEndReachedThreshold={0.5}
         extraData={this.props.favoritesFilm}
         onEndReached={() => {
             // checking for if there still availible pages to load:
           if (this.page < this.totalPages) { 
-            this._searchForMoviesData()
+            //this._searchForMoviesData()
+            this.props.loadFilms()
           }
         }}
          renderItem={({item}) => (

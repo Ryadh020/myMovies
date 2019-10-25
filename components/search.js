@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, FlatList, Text, ActivityIndicator } from 'react-native'
 import FilmItem from './filmItems';
+import FavoritFilmsList from './FavoritFilmsList'
 import {getMoviesData} from '../API/movieDB';
-import { connect } from 'react-redux'
 
 
 class Search extends React.Component {
@@ -35,8 +35,10 @@ class Search extends React.Component {
     this.page = 0
     this.totalPages = 0
     this.setState({
-      films: []
-    }, this._searchForMoviesData())
+      films: [],
+    }, () => {
+      this._searchForMoviesData()
+    })
   }
   
     // watching text input changes:
@@ -55,39 +57,17 @@ class Search extends React.Component {
 
   }
 
-  _displayDetailForFilm = (idFilm, idTitle) => {
-      // change to the view details:
-    this.props.navigation.navigate("filmdetail",{filmId : idFilm})
-
-      // Add it to the historic as viewed:
-    console.log("clicked");
-      
-    let action = { type: 'TOGGLE_FILMDETAIL', value: { id: 1, title: 'Star Wars' } }
-    this.props.dispatch(action) 
-  }
-
   render() {    
     return (
       <View style={styles.main_container}>
         <TextInput onSubmitEditing={()=> this._loadMovies()} onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='tap a film name'/>
         <Button title='Rechercher' onPress={() => this._loadMovies()}/>
-        <FlatList
-            data={this.state.films}
-            keyExtractor={(item) => item.id.toString()}
-            onEndReachedThreshold={0.5}
-            extraData={this.props.favoritesFilm}
-            onEndReached={() => {
-                // checking for if there still availible pages to load:
-              if (this.page < this.totalPages) { 
-                this._searchForMoviesData()
-              }
-            }}
-            renderItem={({item}) => (
-               <FilmItem 
-                  isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
-                  displayDetailForFilm={this._displayDetailForFilm} 
-                  film={item}/>
-            )}
+        <FavoritFilmsList
+          films={this.state.films} 
+          navigation={this.props.navigation} 
+          loadFilms={this._searchForMoviesData} 
+          page={this.page}
+          totalPages={this.totalPages} 
         />
         {this._displayLoading()}
       </View>
@@ -119,11 +99,4 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = state => {
-  return {
-    favoritesFilm: state.toggleFavorite.favoritesFilm,
-    historicFilms: state.manageHistoricFilms.historicFilms
-  }
-}
-
-export default connect(mapStateToProps)(Search)
+export default Search
