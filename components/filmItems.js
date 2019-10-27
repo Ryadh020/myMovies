@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, Animated } from 'react-native'
 import {getPoster} from '../API/movieDB'
+import ItemsSlider from '../Animations/ItemsSlider'
 
 class FilmItem extends React.Component {
 
@@ -20,6 +21,7 @@ class FilmItem extends React.Component {
         // the movie all data :
       const {film, displayDetailForFilm} = this.props;
     return (
+      <ItemsSlider>
         <TouchableOpacity 
             style={styles.main_container}
             onPress={() => displayDetailForFilm(film.id, film.title)}
@@ -42,6 +44,7 @@ class FilmItem extends React.Component {
           </View>
         </View>
       </TouchableOpacity>
+    </ItemsSlider>
     )
   }
 }
