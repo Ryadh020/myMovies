@@ -1,8 +1,9 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, Button, FlatList, Text, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, TextInput, Button, FlatList, Text, ActivityIndicator, Dimensions, Image } from 'react-native'
 import FilmItem from './filmItems';
 import FavoritFilmsList from './FavoritFilmsList'
 import {getMoviesData} from '../API/movieDB';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 class Search extends React.Component {
@@ -60,8 +61,17 @@ class Search extends React.Component {
   render() {    
     return (
       <View style={styles.main_container}>
-        <TextInput onSubmitEditing={()=> this._loadMovies()} onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='tap a film name'/>
-        <Button title='Rechercher' onPress={() => this._loadMovies()}/>
+        <View style={styles.searchBar}>
+          <TextInput onSubmitEditing={()=> this._loadMovies()} onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='SAW IV'/>
+          <TouchableOpacity 
+              onPress={() => this._loadMovies()} 
+              style={styles.submitButton}>
+            <Image
+              source={require("../Images/ic_search.png")}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
         <FavoritFilmsList
           films={this.state.films} 
           navigation={this.props.navigation} 
@@ -80,13 +90,32 @@ const styles = StyleSheet.create({
     flex: 1,
     //marginTop: 20
   },
+  searchBar: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
   textinput: {
-    marginLeft: 5,
-    marginRight: 5,
-    height: 50,
-    borderColor: '#000000',
+    margin: 10,
+    height: 30,
+    width: Dimensions.get('window').width - 50,
+    borderColor: 'white',
+    borderRadius : 7,
     borderWidth: 1,
-    paddingLeft: 5
+    textAlign: 'center',
+    backgroundColor: 'rgb(210,210,210)',
+    color: 'white',
+  },
+  submitButton: {
+    position: 'absolute',
+    right: 32,
+    top: 14,
+    width : 26,
+    height: 26,
+    //backgroundColor: 'red',
+  },
+  icon : {
+    width : 24,
+    height : 24
   },
   loading_container: {
     position: 'absolute',

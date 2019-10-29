@@ -16,7 +16,9 @@ class ItemsSlider extends React.Component {
             this.state.left,
             {
                 toValue : 0,
-                duration : 500
+                duration : 500,
+                easing: Easing.in
+                
             }
         ).start()
     }

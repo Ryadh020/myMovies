@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity, Share } from 'react-native'
+import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity, Share, Animated } from 'react-native'
 import {getMoviesDetails, getPoster} from '../API/movieDB';
+import EnlargeShrink from '../Animations/EnlargShrink'
 import { connect } from 'react-redux'
 import { Platform } from '@unimodules/core';
 
@@ -42,16 +43,21 @@ class FilmDetail extends React.Component {
 }
 
   _displayFavoriteImage() {
-    var sourceImage = require('../Images/ic_favorite_border.png')
-    if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
-     // Film dans nos favoris
-     sourceImage = require('../Images/ic_favorite.png')
+    var sourceImage = require('../Images/ic_favorite_border.png')   // the default image for the fovoriteButton
+    var shrinked = true                                             // the default size of the fovoriteButton
+    if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {  // Movie is inside favoris
+     sourceImage = require('../Images/ic_favorite.png') 
+     shrinked = false                                               // set the fovoriteButton to the other size
     }
     return (
+    <EnlargeShrink
+      shouldEnlarge={shrinked}
+    >
      <Image
        style={styles.favorite_image}
        source={sourceImage}
      />
+    </EnlargeShrink>
    )
   }
 
@@ -206,8 +212,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 },
 favorite_image: {
-  width: 40,
-  height: 40
+  flex: 1,
+  width: null,
+  height: null
 },/*
 share_touchable_floatingactionbutton: {
   position: 'absolute',
