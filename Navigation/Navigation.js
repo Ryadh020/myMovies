@@ -13,7 +13,18 @@ const SearchStackNavigator = createStackNavigator({
     search: {
         screen : Search,
         navigationOptions: {
-            title: 'Search'
+            title: 'search',
+            //headerTransparent: false,
+            headerStyle: {
+                backgroundColor: 'fff',
+                height: 70,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontSize: 35,
+                color: '#737373',
+                //paddingLeft: 80,
+            },
         }
     },
     filmdetail: {
@@ -67,15 +78,15 @@ const BottomNavigationTab = createBottomTabNavigator({
                     />
                 )
             }
-        } 
+        },
     }
 },
 {
     tabBarOptions : {
         showLabel : false,
         showIcon : true,
-        activeBackgroundColor : 'rgb(180,180,180)',
-        inactiveBackgroundColor : 'white'
+        activeBackgroundColor : 'white',
+        inactiveBackgroundColor : 'white',
     }
 }
 )

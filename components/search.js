@@ -62,15 +62,21 @@ class Search extends React.Component {
     return (
       <View style={styles.main_container}>
         <View style={styles.searchBar}>
-          <TextInput onSubmitEditing={()=> this._loadMovies()} onChangeText={(text)=> { this._changeSearchText(text)}} style={styles.textinput} placeholder='SAW IV'/>
-          <TouchableOpacity 
+          <View 
               onPress={() => this._loadMovies()} 
               style={styles.submitButton}>
             <Image
               source={require("../Images/ic_search.png")}
               style={styles.icon}
             />
-          </TouchableOpacity>
+          </View>
+          <TextInput 
+            onSubmitEditing={()=> this._loadMovies()} 
+            onChangeText={(text)=> { this._changeSearchText(text)}} 
+            style={styles.textinput} 
+            placeholder='SAW IV'
+            placeholderTextColor={'#737373'}
+            />
         </View>
         <FavoritFilmsList
           films={this.state.films} 
@@ -88,27 +94,28 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1,
-    //marginTop: 20
+    marginTop: 20
   },
   searchBar: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textinput: {
-    margin: 10,
-    height: 30,
+    marginBottom: 40,
+    height: 45,
     width: Dimensions.get('window').width - 50,
-    borderColor: 'white',
-    borderRadius : 7,
-    borderWidth: 1,
+    borderColor: '#e3e3e3',
+    borderRadius : 15,
     textAlign: 'center',
-    backgroundColor: 'rgb(210,210,210)',
-    color: 'white',
+    backgroundColor: '#e3e3e3',
+    //color: 'white',
   },
   submitButton: {
     position: 'absolute',
-    right: 32,
-    top: 14,
+    zIndex: 1,
+    left: 40,
+    top: 12,
     width : 26,
     height: 26,
     //backgroundColor: 'red',
