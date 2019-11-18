@@ -13,7 +13,7 @@ const SearchStackNavigator = createStackNavigator({
     search: {
         screen : Search,
         navigationOptions: {
-            title: 'search',
+            title: 'My_Movies',
             //headerTransparent: false,
             headerStyle: {
                 backgroundColor: 'fff',

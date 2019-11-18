@@ -27,19 +27,27 @@ class Favorites extends React.Component {
     
     render() {
         return (
+          <View style={styles.main_container}>
+            <View style={styles.avatar_container}>
+              <Avatar/>
+            </View>
             <FavoritFilmsList 
                 films={this.props.favoritesFilm} 
                 navigation={this.props.navigation} 
                 loadFilms={this._searchForMoviesData} 
             />
+          </View>
         )
       }
     }
 
 const styles = StyleSheet.create({
-    header : {
-        color : 'red'
-    }
+      main_container: {
+        flex: 1
+      },
+      avatar_container: {
+        alignItems: 'center'
+      }
 })
 
 const mapStateToProps = (state) => {

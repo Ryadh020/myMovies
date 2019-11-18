@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, Touchable
 import {getMoviesDetails, getPoster} from '../API/movieDB';
 import EnlargeShrink from '../Animations/EnlargShrink'
 import { connect } from 'react-redux'
-import { Platform } from '@unimodules/core';
+//import { Platform } from '@unimodules/core';
 
 class FilmDetail extends React.Component {
 
@@ -94,7 +94,7 @@ class FilmDetail extends React.Component {
 
   _displayFloatingActionButton() {
     const { film } = this.state
-    if (film != undefined && Platform.OS === 'android') {
+    //if (film != undefined && Platform.OS === 'android') {
       return (
         <TouchableOpacity
           style={styles.share_touchable_floatingactionbutton}
@@ -104,7 +104,7 @@ class FilmDetail extends React.Component {
             source={require('../Images/ic_share.png')} />
         </TouchableOpacity>
       )
-    }
+  //  }
   }
 
     // for iOS:
