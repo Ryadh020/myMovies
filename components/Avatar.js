@@ -1,6 +1,7 @@
 import React from 'react'
 import ImagePicker from 'react-native-image-picker'
 import { StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 
 class Avatar extends React.Component {
 
@@ -23,9 +24,8 @@ class Avatar extends React.Component {
       else {
         console.log('Photo : ', response.uri )
         let requireSource = { uri: response.uri }
-        this.setState({
-          avatar: requireSource
-        })
+        const action = { type: "SET_AVATAR", value: requireSource }
+        this.props.dispatch(action)
       }
     })
   }
@@ -35,7 +35,7 @@ class Avatar extends React.Component {
       <TouchableOpacity
         style={styles.touchableOpacity}
         onPress={this._avatarClicked}>
-          <Image style={styles.avatar} source={this.state.avatar} />
+          <Image style={styles.avatar} source={this.props.avatar} />
       </TouchableOpacity>
     )
   }
@@ -44,18 +44,24 @@ class Avatar extends React.Component {
 const styles = StyleSheet.create({
   touchableOpacity: {
     margin: 5,
-    width: 100, // Pensez bien à définir une largeur ici, sinon toute la largeur de l'écran sera cliquable
-    height: 100,
+    width: 70, // Pensez bien à définir une largeur ici, sinon toute la largeur de l'écran sera cliquable
+    height: 70,
     justifyContent: 'center',
     alignItems: 'center'
   },
   avatar: {
-    width: 100,
-    height: 100,
+    width: 50,
+    height: 50,
     borderRadius: 50,
     borderColor: '#9B9B9B',
     borderWidth: 2
   }
 })
 
-export default Avatar
+const mapStateToProps = state => {
+  return {
+    avatar: state.setAvatar.avatar
+  }
+}
+
+export default connect(mapStateToProps)(Avatar)

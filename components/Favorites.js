@@ -1,6 +1,7 @@
 import React from 'react'
-import {Text, StyleSheet} from 'react-native'
+import {Text, StyleSheet, View} from 'react-native'
 import FavoritFilmsList from './FavoritFilmsList'
+import Avatar from '../components/Avatar'
 import { connect } from 'react-redux'
 
 

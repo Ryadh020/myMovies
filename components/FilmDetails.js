@@ -80,6 +80,10 @@ class FilmDetail extends React.Component {
           <Text style={styles.default_text}>rate : {this.state.film.vote_average}</Text>
           <Text style={styles.default_text}>genres : {this.state.film.genres.map(data => data.name).join(" / ")}</Text>
           <Text style={styles.default_text}>companies : {this.state.film.production_companies.map(item => item.name).join(" / ")}</Text>
+          <TouchableOpacity
+            style={styles.touchableOpacity}>
+            <Image style={styles.avatar} source={this.props.avatar} />
+          </TouchableOpacity>
         </ScrollView>
       )
     }
@@ -233,6 +237,20 @@ share_image: {
 },
 share_touchable_headerrightbutton: {
   marginRight: 8
+},
+touchableOpacity: {
+  margin: 5,
+  width: 70, // Pensez bien à définir une largeur ici, sinon toute la largeur de l'écran sera cliquable
+  height: 70,
+  justifyContent: 'center',
+  alignItems: 'center'
+},
+avatar: {
+  width: 50,
+  height: 50,
+  borderRadius: 50,
+  borderColor: '#9B9B9B',
+  borderWidth: 2
 }
 })
 
@@ -240,6 +258,7 @@ share_touchable_headerrightbutton: {
 const mapStateToProps = (state) => {
   return {
     favoritesFilm: state.toggleFavorite.favoritesFilm,
+    avatar: state.setAvatar.avatar
   }
 }
 
